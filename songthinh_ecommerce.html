@@ -1,534 +1,1051 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công ty TNHH VLXD SONG THỊNH - Hệ Thống Phân Phối Toàn Quốc</title>
-    <!-- Google Fonts & FontAwesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* BẢNG MÀU UI/UX ĐẶC TRƯNG MONSUB (DARK THEME CHỦ ĐẠO - HỖ TRỢ LIGHT THEME) */
-        :root {
-            --bg-main: #0b0f19;
-            --bg-card: #131a26;
-            --border-color: #1e293b;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8; /* Xanh Neon MonSub */
-            --accent-glow: rgba(56, 189, 248, 0.15);
-            --price-color: #f43f5e;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VLXD Song Thịnh - Vật Liệu Xây Dựng Chất Lượng Cao</title>
+<meta name="description" content="Công ty TNHH Vật Liệu Xây Dựng Song Thịnh - Cung cấp xi măng, sắt thép, gạch ngói, vật liệu xây dựng chất lượng cao, giá tốt nhất tại TP.HCM">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f14;
+  --bg2:#141720;
+  --bg3:#1a1e2a;
+  --bg4:#222736;
+  --accent:#f97316;
+  --accent2:#fb923c;
+  --accent-dim:#7c3a10;
+  --text:#f0f2f7;
+  --text2:#9aa3b8;
+  --text3:#6b748a;
+  --border:#2a2f3e;
+  --border2:#363c50;
+  --green:#22c55e;
+  --red:#ef4444;
+  --radius:10px;
+  --radius2:16px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Be Vietnam Pro',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:15px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+img{max-width:100%}
 
-        [data-theme="light"] {
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --border-color: #cbd5e1;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --accent: #0284c7;
-            --accent-glow: rgba(2, 132, 199, 0.1);
-            --price-color: #e11d48;
-        }
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg-main); color: var(--text-primary); transition: background 0.2s, color 0.2s; padding-top: 70px; }
-        a { color: inherit; text-decoration: none; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+/* ===== TOPBAR ===== */
+.topbar{
+  background:var(--accent);
+  text-align:center;
+  padding:7px 1rem;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:.3px;
+}
+.topbar span{opacity:.9}
 
-        /* 1. THANH ĐIỀU HƯỚNG (NAVBAR) THÔNG MINH */
-        header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); z-index: 1000; }
-        [data-theme="light"] header { background: rgba(248, 250, 252, 0.85); }
-        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; gap: 20px; }
-        .logo { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; text-transform: uppercase; }
-        .logo span { color: var(--accent); }
-        
-        /* Thanh Tìm Kiếm Đầy Đủ Chức Năng (Autocomplete) */
-        .search-box-container { position: relative; flex: 1; max-width: 500px; }
-        .search-box { width: 100%; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 8px; padding: 10px 40px 10px 15px; color: var(--text-primary); font-size: 14px; outline: none; }
-        .search-box-container i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
-        .autocomplete-suggestions { position: absolute; top: 105%; left: 0; width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; display: none; z-index: 999; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
-        .suggestion-item { padding: 12px 15px; font-size: 13px; cursor: pointer; border-bottom: 1px solid var(--border-color); }
-        .suggestion-item:hover { background: var(--accent-glow); color: var(--accent); }
+/* ===== NAVBAR ===== */
+.navbar{
+  position:sticky;top:0;z-index:1000;
+  background:rgba(13,15,20,.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 2rem;
+  height:64px;
+  display:flex;align-items:center;gap:2rem;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-weight:800;font-size:18px;
+  flex-shrink:0;
+}
+.nav-logo .icon{
+  width:38px;height:38px;
+  background:var(--accent);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;
+}
+.nav-logo .sub{font-size:10px;font-weight:400;color:var(--text2);display:block;line-height:1.2;letter-spacing:.5px;text-transform:uppercase}
+.nav-menu{
+  display:flex;align-items:center;gap:.25rem;
+  margin-left:auto;
+}
+.nav-link{
+  padding:6px 14px;border-radius:8px;
+  font-size:14px;font-weight:500;color:var(--text2);
+  transition:all .2s;cursor:pointer;
+}
+.nav-link:hover,.nav-link.active{background:var(--bg3);color:var(--text)}
+.nav-actions{display:flex;align-items:center;gap:.5rem;margin-left:.5rem}
+.btn-search{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--bg3);color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;transition:all .2s;
+}
+.btn-search:hover{background:var(--bg4);color:var(--text)}
+.btn-cart{
+  position:relative;
+  padding:7px 16px;border-radius:8px;
+  background:var(--accent);color:#fff;
+  font-size:13px;font-weight:600;
+  display:flex;align-items:center;gap:6px;
+  transition:all .2s;
+}
+.btn-cart:hover{background:var(--accent2)}
+.cart-badge{
+  background:#fff;color:var(--accent);
+  border-radius:10px;padding:0 6px;
+  font-size:11px;font-weight:700;min-width:18px;text-align:center;
+}
+.hamburger{display:none;width:36px;height:36px;border-radius:8px;background:var(--bg3);color:var(--text2);align-items:center;justify-content:center;font-size:20px}
 
-        .nav-right { display: flex; align-items: center; gap: 20px; }
-        .menu-links { display: flex; list-style: none; gap: 20px; font-size: 14px; font-weight: 500; }
-        .menu-links a:hover { color: var(--accent); }
-        .cart-icon { position: relative; cursor: pointer; font-size: 18px; }
-        .cart-badge { position: absolute; top: -8px; right: -10px; background: var(--price-color); color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold; }
+/* ===== PAGES ===== */
+.page{display:none}
+.page.active{display:block}
 
-        /* BANNER KHUYẾN MÃI / FLASH SALE */
-        .flash-sale-bar { background: linear-gradient(90deg, #b91c1c, var(--price-color)); color: white; padding: 10px 0; text-align: center; font-size: 13px; font-weight: 600; }
+/* ===== HERO ===== */
+.hero{
+  min-height:560px;
+  background:linear-gradient(135deg,var(--bg2) 0%,var(--bg3) 100%);
+  display:flex;align-items:center;
+  padding:4rem 2rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 70% 50%,rgba(249,115,22,.08) 0%,transparent 70%);
+}
+.hero-content{max-width:600px;position:relative;z-index:1}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);
+  color:var(--accent);border-radius:20px;
+  padding:4px 14px;font-size:12px;font-weight:600;
+  margin-bottom:1.25rem;letter-spacing:.5px;text-transform:uppercase;
+}
+.hero h1{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;line-height:1.2;
+  margin-bottom:1rem;
+}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--text2);font-size:16px;line-height:1.7;margin-bottom:2rem;max-width:480px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{
+  padding:12px 28px;border-radius:10px;
+  background:var(--accent);color:#fff;
+  font-size:15px;font-weight:600;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-1px)}
+.btn-outline{
+  padding:12px 28px;border-radius:10px;
+  background:transparent;color:var(--text);
+  border:1px solid var(--border2);
+  font-size:15px;font-weight:500;
+  transition:all .2s;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-outline:hover{background:var(--bg3);border-color:var(--text3)}
+.hero-stats{
+  display:flex;gap:2rem;margin-top:3rem;
+  padding-top:2rem;border-top:1px solid var(--border);
+  position:relative;z-index:1;
+}
+.hero-stat .num{font-size:1.8rem;font-weight:800;color:var(--accent)}
+.hero-stat .label{font-size:12px;color:var(--text2);letter-spacing:.3px}
+.hero-visual{
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:45%;max-width:520px;
+  opacity:.6;pointer-events:none;
+}
 
-        /* BỘ LỌC SẢN PHẨM PHÂN CẤP (FILTER) */
-        .catalog-section { display: grid; grid-template-columns: 280px 1fr; gap: 30px; margin-top: 30px; }
-        .sidebar-filter { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; height: fit-content; }
-        .filter-group { margin-bottom: 20px; }
-        .filter-group h3 { font-size: 14px; text-transform: uppercase; margin-bottom: 10px; color: var(--text-secondary); letter-spacing: 0.5px; }
-        .filter-group select, .filter-group input { width: 100%; background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px; border-radius: 6px; outline: none; font-size: 13px; }
+/* ===== SECTIONS ===== */
+.section{padding:4rem 2rem}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;gap:1rem;flex-wrap:wrap}
+.section-title{font-size:1.5rem;font-weight:700}
+.section-title span{color:var(--accent)}
+.see-all{
+  font-size:13px;color:var(--text2);
+  padding:6px 14px;border-radius:8px;border:1px solid var(--border);
+  transition:all .2s;cursor:pointer;
+}
+.see-all:hover{background:var(--bg3);color:var(--text)}
 
-        /* LƯỚI SẢN PHẨM CHUẨN MONSUB */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; position: relative; transition: all 0.2s; }
-        .product-card:hover { border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
-        .img-wrapper { position: relative; width: 100%; height: 220px; overflow: hidden; background: #fff; }
-        .product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .product-card:hover .product-img { transform: scale(1.08); }
-        .product-tag { position: absolute; top: 10px; left: 10px; background: var(--price-color); color: white; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 4px; }
-        .product-info { padding: 15px; }
-        .product-brand { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 5px; }
-        .product-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .price-box { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-        .curr-price { color: var(--price-color); font-weight: 700; font-size: 16px; }
-        .old-price { color: var(--text-secondary); text-decoration: line-through; font-size: 13px; }
-        .btn-add-cart { width: 100%; background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; }
-        .btn-add-cart:hover { background: var(--accent); color: #0b0f19; }
+/* ===== CATEGORY PILLS ===== */
+.cat-pills{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.cat-pill{
+  padding:7px 18px;border-radius:20px;
+  border:1px solid var(--border);
+  font-size:13px;font-weight:500;color:var(--text2);
+  cursor:pointer;transition:all .2s;
+}
+.cat-pill:hover{border-color:var(--accent);color:var(--accent)}
+.cat-pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
-        /* 2. CHI TIẾT SẢN PHẨM POPUP (MODAL PRODUCT PAGE) */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
-        .modal-content { background: var(--bg-card); border: 1px solid var(--border-color); width: 100%; max-width: 900px; border-radius: 16px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative; animation: fadeIn 0.3s; }
-        .modal-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--text-secondary); z-index: 10; }
-        .modal-left { padding: 20px; display: flex; flex-direction: column; justify-content: center; background: #fff; position: relative; }
-        .zoom-container { overflow: hidden; cursor: zoom-in; width: 100%; height: 350px; }
-        .zoom-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.1s; }
-        .modal-right { padding: 30px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto; max-height: 550px; }
-        
-        /* 3. GIỎ HÀNG & QUY TRÌNH THANH TOÁN (CHECKOUT MODAL) */
-        .checkout-container { display: none; position: fixed; top: 0; right: 0; width: 450px; height: 100%; background: var(--bg-card); border-left: 1px solid var(--border-color); z-index: 2000; padding: 30px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
-        .checkout-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 12px; color: var(--text-secondary); margin-bottom: 5px; }
-        .form-group input, .form-group select { width: 100%; background: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-primary); padding: 10px; border-radius: 6px; outline: none; }
-        .payment-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .pay-method-card { border: 1px solid var(--border-color); padding: 12px; text-align: center; border-radius: 8px; cursor: pointer; font-size: 13px; }
-        .pay-method-card.active { border-color: var(--accent); background: var(--accent-glow); color: var(--accent); }
-        .qr-box { display: none; text-align: center; margin-top: 15px; padding: 15px; background: #fff; border-radius: 8px; }
+/* ===== PRODUCT GRID ===== */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1.25rem;
+}
+.product-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius2);overflow:hidden;
+  transition:all .25s;cursor:pointer;
+  display:flex;flex-direction:column;
+}
+.product-card:hover{border-color:var(--border2);transform:translateY(-3px);background:var(--bg3)}
+.product-thumb{
+  aspect-ratio:16/11;
+  background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;position:relative;overflow:hidden;
+}
+.product-badge{
+  position:absolute;top:10px;left:10px;
+  background:var(--accent);color:#fff;
+  font-size:11px;font-weight:700;
+  padding:3px 8px;border-radius:6px;
+}
+.product-badge.new{background:var(--green)}
+.product-badge.sale{background:var(--red)}
+.product-info{padding:1rem;flex:1;display:flex;flex-direction:column}
+.product-cat{font-size:11px;color:var(--text3);letter-spacing:.4px;text-transform:uppercase;margin-bottom:4px}
+.product-name{font-size:14px;font-weight:600;margin-bottom:.5rem;line-height:1.4}
+.product-desc{font-size:12px;color:var(--text2);margin-bottom:.75rem;flex:1}
+.product-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.product-price{font-size:16px;font-weight:700;color:var(--accent)}
+.product-price .old{font-size:12px;color:var(--text3);text-decoration:line-through;font-weight:400;margin-left:4px}
+.btn-addcart{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--bg4);color:var(--text2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:all .2s;
+}
+.btn-addcart:hover{background:var(--accent);color:#fff}
 
-        /* 4. ĐÁNH GIÁ (REVIEWS) */
-        .reviews-section { margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 15px; }
-        .review-item { font-size: 13px; background: rgba(255,255,255,0.02); padding: 10px; border-radius: 6px; margin-bottom: 8px; }
-        .review-user { font-weight: 600; color: var(--accent); display: flex; justify-content: space-between; }
-        
-        /* COUPON SYSTEM */
-        .coupon-box { display: flex; gap: 10px; margin: 15px 0; }
-        .btn-apply { background: var(--accent); color: #0b0f19; border: none; padding: 0 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+/* ===== FEATURES ===== */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem}
+.feature-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:1.5rem;
+  transition:all .25s;
+}
+.feature-card:hover{border-color:var(--border2);background:var(--bg3)}
+.feature-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:rgba(249,115,22,.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;margin-bottom:1rem;
+}
+.feature-card h3{font-size:15px;font-weight:600;margin-bottom:.4rem}
+.feature-card p{font-size:13px;color:var(--text2);line-height:1.6}
 
-        /* LIVE CHAT BOX TRỰC TUYẾN TẠO UY TÍN */
-        .live-chat-widgets { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 999; }
-        .chat-icon-btn { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s; }
-        .chat-icon-btn:hover { transform: scale(1.1); }
-        .btn-zalo { background: #0068ff; }
-        .btn-hotline { background: #10b981; }
+/* ===== BRANDS ===== */
+.brands-strip{
+  background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:2rem;
+  display:flex;align-items:center;gap:3rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.brands-strip::-webkit-scrollbar{display:none}
+.brand-item{
+  flex-shrink:0;font-size:13px;font-weight:700;color:var(--text3);
+  letter-spacing:1px;text-transform:uppercase;
+  padding:8px 20px;border-radius:8px;
+  border:1px solid var(--border);
+  transition:all .2s;cursor:default;
+}
+.brand-item:hover{border-color:var(--border2);color:var(--text2)}
 
-        /* FOOTER & CHÍNH SÁCH CHUẨN ĐỘ TIN CẬY */
-        footer { background: var(--bg-card); border-top: 1px solid var(--border-color); margin-top: 60px; padding: 40px 0 20px 0; font-size: 13px; color: var(--text-secondary); }
-        .footer-grid { display: grid; grid-template-columns: 2fr repeat(2, 1fr); gap: 4px; margin-bottom: 30px; }
-        .footer-col h4 { color: var(--text-primary); margin-bottom: 15px; font-size: 14px; text-transform: uppercase; }
-        .footer-col ul { list-style: none; }
-        .footer-col li { margin-bottom: 10px; }
-        .footer-col li a:hover { color: var(--accent); }
-        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid var(--border-color); font-size: 12px; }
+/* ===== SIDEBAR LAYOUT ===== */
+.layout-with-sidebar{display:grid;grid-template-columns:260px 1fr;gap:1.5rem;align-items:start}
+.sidebar{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius2);padding:1.25rem;
+  position:sticky;top:84px;
+}
+.sidebar-title{font-size:13px;font-weight:700;color:var(--text3);letter-spacing:.6px;text-transform:uppercase;margin-bottom:.75rem}
+.sidebar-list{list-style:none}
+.sidebar-list li{
+  padding:8px 10px;border-radius:8px;
+  font-size:13px;font-weight:500;color:var(--text2);
+  cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sidebar-list li:hover{background:var(--bg3);color:var(--text)}
+.sidebar-list li.active{background:rgba(249,115,22,.12);color:var(--accent)}
+.sidebar-count{font-size:11px;color:var(--text3);background:var(--bg4);padding:1px 7px;border-radius:10px}
+.sidebar-divider{height:1px;background:var(--border);margin:1rem 0}
 
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+/* ===== CONTACT ===== */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.contact-info{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem}
+.contact-info h2{font-size:1.25rem;font-weight:700;margin-bottom:1.5rem}
+.contact-item{display:flex;gap:1rem;margin-bottom:1.25rem;align-items:flex-start}
+.contact-icon{
+  width:42px;height:42px;flex-shrink:0;
+  background:rgba(249,115,22,.12);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+}
+.contact-item-text strong{display:block;font-size:14px;font-weight:600;margin-bottom:2px}
+.contact-item-text span{font-size:13px;color:var(--text2)}
+.map-box{
+  border-radius:var(--radius2);overflow:hidden;
+  background:var(--bg3);border:1px solid var(--border);
+  min-height:350px;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:.75rem;color:var(--text2);font-size:14px;
+}
+.contact-form-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem}
+.contact-form-card h2{font-size:1.25rem;font-weight:700;margin-bottom:1.5rem}
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;font-size:13px;font-weight:600;color:var(--text2);margin-bottom:.4rem}
+.form-control{
+  width:100%;padding:10px 14px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-family:inherit;font-size:14px;
+  outline:none;transition:border-color .2s;
+}
+.form-control:focus{border-color:var(--accent)}
+textarea.form-control{resize:vertical;min-height:110px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 
-        /* RESPONSIVE CHUẨN ĐIỆN THOẠI (>70% TRUY CẬP) */
-        @media (max-width: 900px) {
-            .catalog-section { grid-template-columns: 1fr; }
-            .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
-            .modal-left { height: 260px; }
-            .checkout-container { width: 100%; }
-            .menu-links { display: none; }
-            .footer-grid { grid-template-columns: 1fr; gap: 20px; }
-        }
-    </style>
+/* ===== CART PANEL ===== */
+.cart-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  display:none;
+}
+.cart-overlay.open{display:block}
+.cart-panel{
+  position:fixed;right:0;top:0;bottom:0;
+  width:400px;max-width:100vw;
+  background:var(--bg2);border-left:1px solid var(--border);
+  display:flex;flex-direction:column;
+  z-index:2001;
+  transform:translateX(100%);
+  transition:transform .3s ease;
+}
+.cart-panel.open{transform:translateX(0)}
+.cart-head{
+  padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.cart-head h3{font-size:16px;font-weight:700}
+.btn-close-cart{
+  width:34px;height:34px;border-radius:8px;background:var(--bg3);
+  color:var(--text2);display:flex;align-items:center;justify-content:center;font-size:20px;
+  transition:all .2s;
+}
+.btn-close-cart:hover{background:var(--bg4);color:var(--text)}
+.cart-body{flex:1;overflow-y:auto;padding:1rem 1.5rem}
+.cart-empty{text-align:center;padding:3rem 1rem;color:var(--text2)}
+.cart-empty .em-icon{font-size:3rem;margin-bottom:1rem;display:block}
+.cart-item{
+  display:flex;gap:1rem;padding:1rem 0;
+  border-bottom:1px solid var(--border);
+  align-items:center;
+}
+.cart-item-icon{
+  width:52px;height:52px;flex-shrink:0;
+  background:var(--bg3);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:13px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-item-price{font-size:13px;color:var(--accent);font-weight:600}
+.cart-item-qty{
+  display:flex;align-items:center;gap:6px;
+}
+.qty-btn{
+  width:26px;height:26px;border-radius:6px;background:var(--bg4);
+  color:var(--text);font-size:14px;display:flex;align-items:center;justify-content:center;
+  transition:all .15s;
+}
+.qty-btn:hover{background:var(--border2)}
+.qty-num{font-size:13px;font-weight:600;min-width:20px;text-align:center}
+.btn-remove{width:28px;height:28px;border-radius:6px;background:transparent;color:var(--text3);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.btn-remove:hover{background:rgba(239,68,68,.15);color:var(--red)}
+.cart-foot{
+  padding:1.25rem 1.5rem;border-top:1px solid var(--border);
+}
+.cart-total{display:flex;justify-content:space-between;margin-bottom:1rem;font-size:15px}
+.cart-total strong{color:var(--accent);font-size:18px}
+.btn-checkout{
+  width:100%;padding:13px;border-radius:10px;
+  background:var(--accent);color:#fff;font-size:15px;font-weight:700;
+  transition:all .2s;
+}
+.btn-checkout:hover{background:var(--accent2)}
+
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;z-index:3000;
+  background:var(--bg3);border:1px solid var(--border2);
+  border-radius:12px;padding:1rem 1.25rem;
+  display:flex;align-items:center;gap:.75rem;
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+  transform:translateY(100px);opacity:0;
+  transition:all .3s ease;pointer-events:none;
+  max-width:320px;font-size:14px;
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-icon{font-size:1.2rem}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:3rem 2rem 1.5rem;
+}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+.footer-brand .logo{font-size:20px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:.75rem}
+.footer-brand p{font-size:13px;color:var(--text2);line-height:1.7}
+.footer-col h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:.75rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul li a{font-size:13px;color:var(--text2);transition:color .15s}
+.footer-col ul li a:hover{color:var(--accent)}
+.footer-bottom{
+  border-top:1px solid var(--border);padding-top:1.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:.5rem;
+  font-size:12px;color:var(--text3);
+}
+.footer-social{display:flex;gap:.5rem}
+.social-btn{
+  width:34px;height:34px;border-radius:8px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;color:var(--text2);
+  font-size:14px;transition:all .15s;
+}
+.social-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== ABOUT ===== */
+.about-hero{
+  background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);
+  padding:3rem;margin-bottom:2rem;text-align:center;
+}
+.about-hero .logo-big{font-size:4rem;margin-bottom:1rem}
+.about-hero h1{font-size:2rem;font-weight:800;margin-bottom:.75rem}
+.about-hero p{color:var(--text2);max-width:600px;margin:0 auto;line-height:1.8}
+.about-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem;margin-bottom:2rem}
+.about-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:1.75rem}
+.about-card h3{font-size:15px;font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem}
+.about-card p{font-size:13px;color:var(--text2);line-height:1.7}
+
+/* ===== SEARCH ===== */
+.search-bar-wrap{
+  position:relative;margin-bottom:2rem;
+}
+.search-bar{
+  width:100%;padding:14px 18px;padding-left:48px;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);font-family:inherit;font-size:15px;
+  outline:none;transition:border-color .2s;
+}
+.search-bar:focus{border-color:var(--accent)}
+.search-bar::placeholder{color:var(--text3)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--text3);pointer-events:none}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .layout-with-sidebar{grid-template-columns:1fr}
+  .sidebar{position:static;display:none}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .navbar{padding:0 1rem;gap:1rem}
+  .nav-menu{display:none}
+  .hamburger{display:flex}
+  .hero{padding:3rem 1rem}
+  .hero-stats{gap:1.25rem}
+  .section{padding:2.5rem 1rem}
+  .form-row{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .hero-visual{display:none}
+}
+</style>
 </head>
 <body>
 
-    <!-- THANH ĐIỀU HƯỚNG TỐI GIẢN THÔNG MINH -->
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">SONG THỊNH <span>VLXD</span></a>
-            
-            <!-- Ô Tìm Kiếm Thực Tế Tự Động Gợi Ý -->
-            <div class="search-box-container">
-                <input type="text" class="search-box" id="mainSearch" placeholder="Tìm kiếm nhanh sắt, thép, xi măng, cát đá..." oninput="handleSearch(this.value)">
-                <i class="fas fa-search"></i>
-                <div class="autocomplete-suggestions" id="suggestionBox"></div>
-            </div>
+<!-- TOPBAR -->
+<div class="topbar">
+  🏗️ <span>Miễn phí giao hàng cho đơn từ 5 triệu đồng — Hotline: <strong>0909 123 456</strong></span>
+</div>
 
-            <div class="nav-right">
-                <ul class="menu-links">
-                    <li><a href="#">Trang Chủ</a></li>
-                    <li><a href="#cua-hang">Sản Phẩm</a></li>
-                    <li><a href="#chinh-sach">Chính Sách</a></li>
-                </ul>
-                <div class="cart-icon" onclick="toggleCheckout(true)">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-badge" id="cartCount">0</span>
-                </div>
-                <button onclick="toggleTheme()" style="background:none; border:none; color:var(--text-primary); cursor:pointer;"><i class="fas fa-adjust"></i></button>
-            </div>
-        </div>
-    </header>
-
-    <!-- FLASH SALE KÍCH CẦU MARKETING -->
-    <div class="flash-sale-bar">
-        🔥 FLASH SALE HÔM NAY: Nhập mã <span style="text-decoration: underline; color: #fde047;">ST2026</span> giảm ngay 5% tổng giá trị đơn hàng xây dựng!
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <div class="icon">🏠</div>
+    <div>
+      <span style="display:block;line-height:1.1">SONG THỊNH</span>
+      <span class="sub">VLXD Chất Lượng Cao</span>
     </div>
+  </div>
+  <div class="nav-menu">
+    <span class="nav-link active" onclick="showPage('home')">Trang Chủ</span>
+    <span class="nav-link" onclick="showPage('products')">Sản Phẩm</span>
+    <span class="nav-link" onclick="showPage('about')">Giới Thiệu</span>
+    <span class="nav-link" onclick="showPage('contact')">Liên Hệ</span>
+  </div>
+  <div class="nav-actions">
+    <button class="btn-search" onclick="toggleSearch()" title="Tìm kiếm">🔍</button>
+    <button class="btn-cart" onclick="openCart()">
+      🛒 Giỏ hàng <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+  </div>
+  <button class="hamburger" onclick="toggleMobile()">☰</button>
+</nav>
 
-    <!-- KHU VỰC CỬA HÀNG CHUYÊN NGHIỆP -->
-    <main class="container catalog-section" id="cua-hang">
-        
-        <!-- BỘ LỌC SIDEBAR (FILTER) -->
-        <aside class="sidebar-filter">
-            <div class="filter-group">
-                <h3>Bộ lọc Vật Liệu</h3>
-                <select id="filterCategory" onchange="filterProducts()">
-                    <option value="all">Tất cả danh mục</option>
-                    <option value="thep">Sắt Thép Hệ Thống</option>
-                    <option value="ximang">Xi Măng Đóng Bao</option>
-                    <option value="catda">Cát Đá Thô</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <h3>Thương Hiệu uy tín</h3>
-                <select id="filterBrand" onchange="filterProducts()">
-                    <option value="all">Tất cả thương hiệu</option>
-                    <option value="Hòa Phát">Hòa Phát</option>
-                    <option value="Hà Tiên">Hà Tiên</option>
-                    <option value="Việt Nhật">Việt Nhật</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <h3>Khoảng Giá (VNĐ)</h3>
-                <select id="filterPrice" onchange="filterProducts()">
-                    <option value="all">Mọi mức giá</option>
-                    <option value="under-150">Dưới 150.000đ</option>
-                    <option value="over-150">Trên 150.000đ</option>
-                </select>
-            </div>
-        </aside>
+<!-- PAGE: HOME -->
+<div class="page active" id="page-home">
 
-        <!-- LƯỚI HIỂN THỊ SẢN PHẨM -->
-        <section class="products-grid" id="productGridContainer">
-            <!-- Dữ liệu được render động bằng JavaScript ở phía dưới để tối ưu SEO và tốc độ -->
-        </section>
-    </main>
-
-    <!-- 2. TRANG CHI TIẾT SẢN PHẨM PHÓNG TO (PRODUCT DETAILED PAGE MODAL) -->
-    <div class="modal" id="productModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeProductModal()">&times;</span>
-            <div class="modal-left">
-                <div class="zoom-container" id="zoomArea" onmousemove="zoomImage(event)" onmouseleave="resetZoom()">
-                    <img id="modalImg" src="" alt="Sản phẩm">
-                </div>
-            </div>
-            <div class="modal-right">
-                <div>
-                    <span id="modalBrand" style="font-size:11px; text-transform:uppercase; color:var(--text-secondary);">Thương hiệu</span>
-                    <h2 id="modalTitle" style="font-size: 22px; margin: 5px 0 15px 0;">Tên sản phẩm</h2>
-                    <div class="price-box">
-                        <span class="curr-price" id="modalPrice" style="font-size:24px;">0đ</span>
-                    </div>
-                    <p id="modalDesc" style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">Mô tả chi tiết</p>
-                </div>
-                
-                <!-- Khu vực hiển thị minh bạch đánh giá thực tế khách hàng -->
-                <div class="reviews-section">
-                    <h4 style="font-size:13px; margin-bottom:10px;"><i class="fas fa-star" style="color:#eab308"></i> ĐÁNH GIÁ THỰC TẾ (SÀN LỌC)</h4>
-                    <div id="modalReviews"></div>
-                </div>
-
-                <button class="btn-add-cart" id="modalActionBtn" style="background:var(--accent); color:#0b0f19; font-size:15px; padding:12px; margin-top:20px;">THÊM VÀO GIỎ HÀNG THẦU</button>
-            </div>
-        </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">⭐ Uy Tín Hơn 15 Năm</div>
+      <h1>Vật Liệu Xây Dựng<br><span>Chất Lượng Đỉnh Cao</span></h1>
+      <p>Cung cấp đầy đủ xi măng, sắt thép, gạch ngói, vật tư hoàn thiện và giải pháp xây dựng toàn diện — chất lượng đảm bảo, giá tốt nhất TP.HCM.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('products')">Xem Sản Phẩm →</button>
+        <button class="btn-outline" onclick="showPage('contact')">Liên Hệ Tư Vấn</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num">500+</div><div class="label">Loại sản phẩm</div></div>
+        <div class="hero-stat"><div class="num">15+</div><div class="label">Năm kinh nghiệm</div></div>
+        <div class="hero-stat"><div class="num">3000+</div><div class="label">Khách hàng tin dùng</div></div>
+      </div>
     </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;opacity:.25">
+        <rect x="60" y="200" width="200" height="250" rx="8" fill="#f97316" opacity=".3"/>
+        <rect x="100" y="150" width="120" height="260" rx="8" fill="#f97316" opacity=".2"/>
+        <rect x="260" y="240" width="180" height="210" rx="8" fill="#f97316" opacity=".25"/>
+        <rect x="300" y="180" width="100" height="270" rx="8" fill="#f97316" opacity=".15"/>
+        <rect x="50" y="440" width="400" height="20" rx="4" fill="#f97316" opacity=".4"/>
+        <rect x="0" y="455" width="500" height="10" rx="4" fill="#f97316" opacity=".2"/>
+      </svg>
+    </div>
+  </section>
 
-    <!-- 3. QUY TRÌNH THANH TOÁN ĐƠN GIẢN RÚT GỌN (CHECKOUT SIDEBAR) -->
-    <div class="checkout-container" id="checkoutSidebar">
-        <div class="checkout-header">
-            <h3>ĐƠN HÀNG CỦA BẠN</h3>
-            <span style="cursor:pointer; font-size:20px;" onclick="toggleCheckout(false)">&times;</span>
-        </div>
-        
-        <div id="cartItemsList" style="margin-bottom: 20px;">
-            <!-- Danh sách vật liệu đã chọn mua -->
-        </div>
+  <!-- BRANDS -->
+  <div class="brands-strip">
+    <span style="font-size:12px;color:var(--text3);font-weight:700;flex-shrink:0;text-transform:uppercase;letter-spacing:.5px">Đối tác</span>
+    <div class="brand-item">Holcim</div>
+    <div class="brand-item">Vicem</div>
+    <div class="brand-item">Hòa Phát</div>
+    <div class="brand-item">Pomina</div>
+    <div class="brand-item">Đồng Tâm</div>
+    <div class="brand-item">Prime</div>
+    <div class="brand-item">Bình Dương</div>
+    <div class="brand-item">Sunstone</div>
+    <div class="brand-item">KCC</div>
+  </div>
 
-        <div class="coupon-box">
-            <input type="text" id="couponInput" placeholder="Nhập mã ưu đãi (ST2026)">
-            <button class="btn-apply" onclick="applyCoupon()">Áp Dụng</button>
-        </div>
+  <!-- FEATURED PRODUCTS -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Sản Phẩm <span>Nổi Bật</span></h2>
+      <button class="see-all" onclick="showPage('products')">Xem tất cả →</button>
+    </div>
+    <div class="cat-pills" id="home-cat-pills">
+      <span class="cat-pill active" onclick="filterHome('all',this)">Tất cả</span>
+      <span class="cat-pill" onclick="filterHome('ximang',this)">Xi Măng</span>
+      <span class="cat-pill" onclick="filterHome('sat',this)">Sắt Thép</span>
+      <span class="cat-pill" onclick="filterHome('gach',this)">Gạch Ngói</span>
+      <span class="cat-pill" onclick="filterHome('son',this)">Sơn & Hoàn Thiện</span>
+    </div>
+    <div class="product-grid" id="home-products"></div>
+  </section>
 
-        <div style="font-size:16px; font-weight:700; margin-bottom:20px; display:flex; justify-content:space-between;">
-            <span>TỔNG KHỐI LƯỢNG TIỀN:</span>
-            <span id="cartTotalPrice" style="color:var(--price-color);">0đ</span>
-        </div>
+  <!-- FEATURES -->
+  <section class="section" style="padding-top:0">
+    <div class="section-header">
+      <h2 class="section-title">Tại Sao Chọn <span>Song Thịnh?</span></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🏆</div><h3>Chất Lượng Đảm Bảo</h3><p>100% hàng chính hãng, có chứng nhận CO/CQ đầy đủ, kiểm định chất lượng trước khi xuất kho.</p></div>
+      <div class="feature-card"><div class="feature-icon">🚛</div><h3>Giao Hàng Nhanh</h3><p>Miễn phí vận chuyển nội thành, giao hàng trong ngày, có xe tải chuyên dụng cho hàng nặng.</p></div>
+      <div class="feature-card"><div class="feature-icon">💰</div><h3>Giá Cạnh Tranh</h3><p>Giá tốt nhất thị trường, chiết khấu hấp dẫn cho đơn sỉ, hỗ trợ trả chậm cho đối tác lâu dài.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔧</div><h3>Tư Vấn Chuyên Sâu</h3><p>Đội ngũ kỹ thuật 15 năm kinh nghiệm, tư vấn định mức vật tư chính xác, giảm lãng phí tối đa.</p></div>
+    </div>
+  </section>
+</div>
 
-        <!-- MUA HÀNG KHÔNG CẦN ĐĂNG KÝ KÝ TÀI KHOẢN -->
-        <h4 style="font-size:13px; margin-bottom:15px; text-transform:uppercase; color:var(--text-secondary)">Thông tin giao hàng nhanh</h4>
+<!-- PAGE: PRODUCTS -->
+<div class="page" id="page-products">
+  <section class="section">
+    <div style="margin-bottom:1.5rem">
+      <h2 class="section-title" style="margin-bottom:.5rem">Danh Mục <span>Sản Phẩm</span></h2>
+      <p style="color:var(--text2);font-size:14px">Hơn 500 loại vật liệu xây dựng chính hãng</p>
+    </div>
+    <div class="search-bar-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-bar" type="text" placeholder="Tìm kiếm sản phẩm..." id="productSearch" oninput="filterProducts()">
+    </div>
+    <div class="layout-with-sidebar">
+      <aside class="sidebar">
+        <div class="sidebar-title">Danh mục</div>
+        <ul class="sidebar-list" id="sidebar-cats"></ul>
+        <div class="sidebar-divider"></div>
+        <div class="sidebar-title">Khoảng giá</div>
+        <ul class="sidebar-list">
+          <li class="active" onclick="filterByPrice('all',this)">Tất cả mức giá <span class="sidebar-count">—</span></li>
+          <li onclick="filterByPrice('low',this)">Dưới 500.000đ <span class="sidebar-count">—</span></li>
+          <li onclick="filterByPrice('mid',this)">500K – 2 triệu <span class="sidebar-count">—</span></li>
+          <li onclick="filterByPrice('high',this)">Trên 2 triệu <span class="sidebar-count">—</span></li>
+        </ul>
+      </aside>
+      <div>
+        <div class="cat-pills" id="products-cat-pills"></div>
+        <div class="product-grid" id="all-products"></div>
+        <p id="no-result" style="display:none;text-align:center;color:var(--text2);padding:3rem;font-size:14px">Không tìm thấy sản phẩm phù hợp.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: ABOUT -->
+<div class="page" id="page-about">
+  <section class="section">
+    <div class="about-hero">
+      <div class="logo-big">🏗️</div>
+      <h1>Công ty TNHH VLXD <span style="color:var(--accent)">Song Thịnh</span></h1>
+      <p>Thành lập từ năm 2009, Song Thịnh đã trở thành một trong những nhà cung cấp vật liệu xây dựng uy tín hàng đầu tại TP.HCM và các tỉnh lân cận.</p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card"><h3>🎯 Sứ Mệnh</h3><p>Cung cấp vật liệu xây dựng chất lượng, đáng tin cậy với mức giá hợp lý nhất, đồng hành cùng từng công trình từ nhỏ đến lớn.</p></div>
+      <div class="about-card"><h3>👁️ Tầm Nhìn</h3><p>Trở thành đơn vị phân phối VLXD hàng đầu khu vực miền Nam, mở rộng hệ thống đại lý khắp 19 tỉnh ĐBSCL vào năm 2030.</p></div>
+      <div class="about-card"><h3>💎 Giá Trị Cốt Lõi</h3><p>Uy tín — Chất lượng — Tận tâm — Đổi mới. Mọi quyết định đều đặt lợi ích khách hàng và tính bền vững lên hàng đầu.</p></div>
+      <div class="about-card"><h3>📜 Giấy Phép</h3><p>MST: 0312345678 — Địa chỉ ĐKKD: 123 Nguyễn Văn Linh, P.Bình Thuận, Q.7, TP.HCM. Được cấp phép bởi Sở KH&ĐT TP.HCM.</p></div>
+      <div class="about-card"><h3>🏭 Kho Bãi</h3><p>Kho rộng hơn 5.000m² tại Q.7 và Bình Chánh, luôn đảm bảo tồn kho đủ cho các đơn hàng lớn với thời gian giao tối thiểu.</p></div>
+      <div class="about-card"><h3>🤝 Đối Tác</h3><p>Đại lý phân phối cấp 1 của Holcim, Vicem, Hòa Phát, Pomina; đối tác tin cậy của hơn 200 nhà thầu xây dựng.</p></div>
+    </div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem">
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:1.25rem">Thành Tựu Nổi Bật</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1.25rem">
+        <div style="text-align:center;padding:1.25rem;background:var(--bg3);border-radius:12px">
+          <div style="font-size:2rem;font-weight:800;color:var(--accent)">15+</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Năm hoạt động</div>
+        </div>
+        <div style="text-align:center;padding:1.25rem;background:var(--bg3);border-radius:12px">
+          <div style="font-size:2rem;font-weight:800;color:var(--accent)">3000+</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Khách hàng</div>
+        </div>
+        <div style="text-align:center;padding:1.25rem;background:var(--bg3);border-radius:12px">
+          <div style="font-size:2rem;font-weight:800;color:var(--accent)">500+</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Loại sản phẩm</div>
+        </div>
+        <div style="text-align:center;padding:1.25rem;background:var(--bg3);border-radius:12px">
+          <div style="font-size:2rem;font-weight:800;color:var(--accent)">50+</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px">Nhân viên</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PAGE: CONTACT -->
+<div class="page" id="page-contact">
+  <section class="section">
+    <div style="margin-bottom:2rem">
+      <h2 class="section-title">Liên <span>Hệ</span></h2>
+      <p style="color:var(--text2);font-size:14px;margin-top:.25rem">Chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info" style="margin-bottom:1.5rem">
+          <h2>Thông Tin Liên Hệ</h2>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-text">
+              <strong>Địa chỉ</strong>
+              <span>123 Nguyễn Văn Linh, P.Bình Thuận, Quận 7, TP.HCM</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-text">
+              <strong>Hotline</strong>
+              <span>0909 123 456 (7h–21h hàng ngày)</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">✉️</div>
+            <div class="contact-item-text">
+              <strong>Email</strong>
+              <span>songthinh@vlxd.com.vn</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">⏰</div>
+            <div class="contact-item-text">
+              <strong>Giờ làm việc</strong>
+              <span>Thứ 2 – Thứ 7: 7:00 – 18:00 | CN: 7:00 – 12:00</span>
+            </div>
+          </div>
+        </div>
+        <div class="map-box">
+          <span style="font-size:3rem">🗺️</span>
+          <span style="font-weight:600">Bản Đồ Cửa Hàng</span>
+          <span style="font-size:12px;text-align:center">123 Nguyễn Văn Linh, Q.7<br>TP.Hồ Chí Minh</span>
+          <a href="https://maps.google.com" target="_blank" style="margin-top:.5rem;padding:8px 18px;background:var(--accent);color:#fff;border-radius:8px;font-size:13px;font-weight:600">Mở Google Maps</a>
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <h2>Gửi Yêu Cầu Tư Vấn</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Họ và tên *</label>
+            <input class="form-control" type="text" placeholder="Nguyễn Văn A">
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại *</label>
+            <input class="form-control" type="tel" placeholder="0909 000 000">
+          </div>
+        </div>
         <div class="form-group">
-            <label>Tên nhà thầu / Khách hàng *</label>
-            <input type="text" id="customerName" placeholder="Ví dụ: Nguyễn Văn A">
+          <label>Email</label>
+          <input class="form-control" type="email" placeholder="email@example.com">
         </div>
         <div class="form-group">
-            <label>Số điện thoại nhận vật tư *</label>
-            <input type="tel" id="customerPhone" placeholder="Ví dụ: 0912345678">
+          <label>Loại công trình</label>
+          <select class="form-control">
+            <option>Nhà ở dân dụng</option>
+            <option>Nhà xưởng / Kho bãi</option>
+            <option>Cao ốc văn phòng</option>
+            <option>Công trình dân dụng khác</option>
+          </select>
         </div>
         <div class="form-group">
-            <label>Địa chỉ nhận hàng (Công trình) *</label>
-            <input type="text" id="customerAddress" placeholder="Số nhà, Tên đường, Quận/Huyện">
+          <label>Nội dung yêu cầu</label>
+          <textarea class="form-control" placeholder="Mô tả nhu cầu của bạn (loại vật tư, số lượng, thời gian cần...)"></textarea>
         </div>
-
-        <!-- PHƯƠNG THỨC THANH TOÁN LINH HOẠT -->
-        <label style="font-size:12px; color:var(--text-secondary)">Phương thức thanh toán</label>
-        <div class="payment-methods">
-            <div class="pay-method-card active" id="payCOD" onclick="setPayment('COD')"><i class="fas fa-truck"></i> Tiền mặt khi nhận hàng (COD)</div>
-            <div class="pay-method-card" id="payBank" onclick="setPayment('BANK')"><i class="fas fa-qrcode"></i> Chuyển khoản QR ngân hàng</div>
-        </div>
-
-        <div class="qr-box" id="qrBoxArea">
-            <p style="color:#0f172a; font-size:12px; font-weight:600; margin-bottom:10px;">Quét mã QR để chuyển khoản nhanh tổng đài</p>
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=ST-VLXD-SONGTHINH" alt="Mã QR thanh toán">
-        </div>
-
-        <button class="btn-add-cart" style="background:var(--price-color); color:white; border:none; font-size:15px; font-weight:700; padding:14px; margin-top:20px;" onclick="submitOrder()">XÁC NHẬN ĐẶT HÀNG NGAY</button>
+        <button class="btn-primary" style="width:100%;justify-content:center" onclick="submitContact()">Gửi Yêu Cầu →</button>
+      </div>
     </div>
+  </section>
+</div>
 
-    <!-- TÍN HIỆU UY TÍN CHĂM SÓC KHÁCH HÀNG (LIVE CHAT & PHONE) -->
-    <div class="live-chat-widgets">
-        <a href="https://zalo.me/0123456789" target="_blank" class="chat-icon-btn btn-zalo" title="Tư vấn kỹ thuật qua Zalo"><i class="fab fa-talking-tech"></i>Zalo</a>
-        <a href="tel:0123456789" class="chat-icon-btn btn-hotline" title="Hotline điều phối xe tải bãi"><i class="fas fa-phone-alt"></i></a>
+<!-- CART OVERLAY + PANEL -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head">
+    <h3>🛒 Giỏ Hàng</h3>
+    <button class="btn-close-cart" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty"><span class="em-icon">🛒</span><p>Giỏ hàng trống.<br>Hãy thêm sản phẩm!</p></div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-total"><span>Tổng cộng:</span><strong id="cartTotal">0đ</strong></div>
+    <button class="btn-checkout" onclick="checkout()">Đặt Hàng Ngay →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <span id="toastMsg">Đã thêm vào giỏ!</span>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><span style="font-size:1.5rem">🏠</span> SONG THỊNH</div>
+      <p>Công ty TNHH Vật Liệu Xây Dựng Song Thịnh — đối tác tin cậy cho mọi công trình.</p>
     </div>
+    <div class="footer-col">
+      <h4>Sản Phẩm</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('products')">Xi Măng</a></li>
+        <li><a href="#" onclick="showPage('products')">Sắt Thép</a></li>
+        <li><a href="#" onclick="showPage('products')">Gạch Ngói</a></li>
+        <li><a href="#" onclick="showPage('products')">Sơn & Hoàn Thiện</a></li>
+        <li><a href="#" onclick="showPage('products')">Vật Tư Điện Nước</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Công Ty</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('about')">Giới Thiệu</a></li>
+        <li><a href="#" onclick="showPage('contact')">Liên Hệ</a></li>
+        <li><a href="#">Tuyển Dụng</a></li>
+        <li><a href="#">Chính Sách Bảo Hành</a></li>
+        <li><a href="#">Điều Khoản Sử Dụng</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hỗ Trợ</h4>
+      <ul>
+        <li><a href="#">Hotline: 0909 123 456</a></li>
+        <li><a href="#">songthinh@vlxd.com.vn</a></li>
+        <li><a href="#">Hướng dẫn đặt hàng</a></li>
+        <li><a href="#">Chính sách đổi trả</a></li>
+        <li><a href="#">Tra cứu vận chuyển</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Công ty TNHH VLXD Song Thịnh. MST: 0312345678</span>
+    <div class="footer-social">
+      <a class="social-btn" href="#" title="Facebook">f</a>
+      <a class="social-btn" href="#" title="Zalo">Z</a>
+      <a class="social-btn" href="#" title="YouTube">▶</a>
+    </div>
+  </div>
+</footer>
 
-    <!-- FOOTER CHÍNH SÁCH BẢO MẬT MINH BẠCH -->
-    <footer id="chinh-sach">
-        <div class="container footer-grid">
-            <div class="footer-col">
-                <h4>CÔNG TY TNHH VLXD SONG THỊNH</h4>
-                <p style="line-height: 1.6; margin-bottom: 10px;">Tổng đại lý cung cấp các giải pháp vật liệu xây dựng thô và hoàn thiện chất lượng cao hàng đầu khu vực.</p>
-                <p><i class="fas fa-map-marker-alt"></i> Văn phòng & Tổng Kho: TP. Hồ Chí Minh, Việt Nam</p>
-                <p><i class="fas fa-envelope"></i> Email: kinhdoanh@songthinhvlxd.com</p>
-                <p><i class="fas fa-shield-alt"></i> Website bảo mật mã hóa SSL Chứng chỉ xanh cao cấp.</p>
-            </div>
-            <div class="footer-col">
-                <h4>CHÍNH SÁCH DOANH NGHIỆP</h4>
-                <ul>
-                    <li><a href="#">Chính sách vận chuyển xe tải ben</a></li>
-                    <li><a href="#">Quy trình đổi trả vật tư lỗi bãi</a></li>
-                    <li><a href="#">Chính sách bảo mật dữ liệu thầu</a></li>
-                    <li><a href="#">Điều khoản công nợ dài hạn</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>ĐƠN VỊ VẬN CHUYỂN LIÊN KẾT</h4>
-                <p style="margin-bottom: 8px;"><i class="fas fa-check-circle" style="color:var(--accent)"></i> Đội xe tự hành Song Thịnh (Giao nhanh 2h)</p>
-                <p><i class="fas fa-check-circle" style="color:var(--accent)"></i> Liên kết hạ tầng toàn quốc: GHTK, Viettel Post.</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2026 CÔNG TY TNHH VLXD SONG THỊNH. Tất cả quyền được bảo lưu. Thiết kế tinh tế tối giản theo cấu trúc lõi MonSub.
-        </div>
-    </footer>
+<script>
+// ===== DATA =====
+const PRODUCTS = [
+  {id:1,name:'Xi Măng Holcim PCB40',cat:'ximang',icon:'🏭',price:95000,unit:'bao 50kg',desc:'Chịu lực cao, dùng cho móng, cột, dầm',badge:'hot'},
+  {id:2,name:'Xi Măng Vicem Hà Tiên',cat:'ximang',icon:'🧱',price:88000,unit:'bao 50kg',desc:'Xi măng phổ thông, phù hợp mọi công trình',badge:''},
+  {id:3,name:'Xi Măng INSEE SCG',cat:'ximang',icon:'🏗️',price:105000,unit:'bao 50kg',desc:'Chất lượng Thái Lan, độ bền cao',badge:'new'},
+  {id:4,name:'Thép Xây Dựng Hòa Phát Ø10',cat:'sat',icon:'⚙️',price:18500,unit:'kg',desc:'Thép vằn D10 CB300-V, chuẩn TCVN',badge:'hot'},
+  {id:5,name:'Thép Xây Dựng Hòa Phát Ø12',cat:'sat',icon:'⚙️',price:18200,unit:'kg',desc:'Thép vằn D12 CB300-V, chuẩn TCVN',badge:''},
+  {id:6,name:'Thép Hộp 40×40',cat:'sat',icon:'🔩',price:35000,unit:'kg',desc:'Hộp vuông 40×40×2mm, mạ kẽm nhúng nóng',badge:''},
+  {id:7,name:'Thép Pomina D16',cat:'sat',icon:'⚙️',price:19800,unit:'kg',desc:'Thép cường độ cao CB400-V cho kết cấu lớn',badge:'new'},
+  {id:8,name:'Gạch Đồng Tâm 600×600',cat:'gach',icon:'🟫',price:320000,unit:'m²',desc:'Gạch granite lát nền, chống trơn, màu đa dạng',badge:'sale'},
+  {id:9,name:'Gạch Ốp Tường Prime 30×60',cat:'gach',icon:'🟧',price:180000,unit:'m²',desc:'Gạch gốm nung, nhiều mẫu mã đẹp',badge:''},
+  {id:10,name:'Gạch Tuynel 4 Lỗ',cat:'gach',icon:'🧱',price:2800,unit:'viên',desc:'Gạch xây tường dày, cách nhiệt tốt',badge:''},
+  {id:11,name:'Ngói Lợp Mái Đỏ',cat:'gach',icon:'🏚️',price:8500,unit:'viên',desc:'Ngói âm dương truyền thống, độ bền 50 năm',badge:''},
+  {id:12,name:'Sơn Kova Nội Thất 5L',cat:'son',icon:'🎨',price:320000,unit:'thùng',desc:'Sơn chống thấm nội thất, 100+ màu sắc',badge:'hot'},
+  {id:13,name:'Sơn Dulux Ngoại Thất 5L',cat:'son',icon:'🪣',price:450000,unit:'thùng',desc:'Chịu mưa nắng, bền màu 10 năm',badge:''},
+  {id:14,name:'Bột Trét Tường Joton 25kg',cat:'son',icon:'🏔️',price:125000,unit:'bao',desc:'Bột trét nền, nhẵn bóng, chống ẩm',badge:'sale'},
+  {id:15,name:'Keo Chà Ron Mapei 5kg',cat:'son',icon:'🟡',price:85000,unit:'túi',desc:'Keo chà ron gạch cao cấp, 20 màu',badge:''},
+  {id:16,name:'Cát Vàng Xây Dựng',cat:'vatlieu',icon:'🏜️',price:550000,unit:'m³',desc:'Cát sạch, đồng đều hạt, đúng quy chuẩn',badge:''},
+  {id:17,name:'Đá Mi 1×2',cat:'vatlieu',icon:'💎',price:420000,unit:'m³',desc:'Đá dăm gia cố nền móng, cốt liệu bê tông',badge:'hot'},
+  {id:18,name:'Ống Nhựa PVC Bình Minh Ø90',cat:'diennuoc',icon:'🔵',price:65000,unit:'cây 4m',desc:'Ống cấp nước, chịu áp lực cao PN10',badge:''},
+  {id:19,name:'Dây Điện Trần Phú 2.5mm',cat:'diennuoc',icon:'🔌',price:52000,unit:'m',desc:'Dây đồng lõi mềm, vỏ PVC chịu nhiệt',badge:'new'},
+  {id:20,name:'Tấm Lợp Tôn Sóng Vuông 0.4mm',cat:'tonmat',icon:'🏠',price:85000,unit:'m²',desc:'Tôn mạ màu, chống han rỉ 20 năm',badge:''},
+];
 
-    <!-- LOGIC VẬN HÀNH TOÀN BỘ WEBSITE (CORE ENGINE JS) -->
-    <script>
-        // NƠI LƯU TRỮ CƠ SỞ DỮ LIỆU SẢN PHẨM CHUẨN SEO
-        const PRODUCTS_DB = [
-            { id: 1, category: 'thep', brand: 'Hòa Phát', title: 'Thép Cuộn Phi 6 Hòa Phát mác CB300', price: 145000, oldPrice: 170000, img: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&q=80&w=400', desc: 'Thép cuộn chính hãng Hòa Phát, siêu bền dẻo, chuyên dụng cho đổ bê tông móng, sàn chung cư cao tầng. Đầy đủ CO/CQ từ nhà máy.', reviews: [{user:'Anh Hải (Thầu xây dựng)', text:'Thép dẻo, kéo uốn rất tốt, giao hàng đủ khối lượng cân bãi.'}, {user:'Minh Tuấn', text:'Giao hàng nhanh đúng hẹn đêm khuya.'}] },
-            { id: 2, category: 'ximang', brand: 'Hà Tiên', title: 'Xi Măng Hà Tiên Đa Dụng PCB40', price: 89000, oldPrice: 99000, img: 'https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&q=80&w=400', desc: 'Xi măng mác cao PCB40 chuyên dụng tô trát tường mịn, độ kết dính cực cao, hạn chế tối đa rạn nứt bề mặt công trình xây dựng dân dụng.', reviews: [{user:'Thầu Thạch', text:'Trát tường rất mịn màng, đông kết chuẩn thời gian.'}] },
-            { id: 3, category: 'thep', brand: 'Việt Nhật', title: 'Thép Thanh Vằn Phi 12 Việt Nhật', price: 195000, oldPrice: 220000, img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=400', desc: 'Thép cốt bê tông thanh vằn Việt Nhật chịu tải cực cao, tiêu chuẩn công nghệ kỹ thuật Nhật Bản nghiêm ngặt.', reviews: [] },
-            { id: 4, category: 'catda', brand: 'Khác', title: 'Cát Xây Tô Sàng Lọc Hạt Mịn', price: 130000, oldPrice: 150000, img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400', desc: 'Cát khai thác tự nhiên tại lòng sông lớn, đã qua hệ thống sàng lọc loại bỏ hoàn toàn tạp chất, bùn đất hữu cơ sạch 100%.', reviews: [{user:'Chú Năm Biên Hòa', text:'Cát sạch, trộn vữa xây rất dôi.'}] }
-        ];
+const CATS = [
+  {key:'all',label:'Tất cả'},
+  {key:'ximang',label:'Xi Măng'},
+  {key:'sat',label:'Sắt Thép'},
+  {key:'gach',label:'Gạch & Ngói'},
+  {key:'son',label:'Sơn & Hoàn Thiện'},
+  {key:'vatlieu',label:'Cát, Đá'},
+  {key:'diennuoc',label:'Điện & Nước'},
+  {key:'tonmat',label:'Tôn & Mái'},
+];
 
-        let GIO_HANG = [];
-        let UU_DAI_GIAM_GIA = 1; // Hệ số nhân tính tiền khi dùng coupon
-        let PHUONG_THUC_TT = 'COD';
+// ===== CART STATE =====
+let cart = [];
+let currentCat = 'all';
+let currentPriceFilter = 'all';
 
-        // KHỞI TẠO TẢI SẢN PHẨM REALTIME SIÊU TỐC
-        window.addEventListener('DOMContentLoaded', () => {
-            renderProducts(PRODUCTS_DB);
-        });
+// ===== FORMAT PRICE =====
+function fmt(n){return n.toLocaleString('vi-VN')+'đ'}
 
-        function renderProducts(dataList) {
-            const container = document.getElementById('productGridContainer');
-            container.innerHTML = '';
-            if(dataList.length === 0) {
-                container.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--text-secondary);">Không tìm thấy vật liệu phù hợp với bộ lọc lọc.</p>`;
-                return;
-            }
-            dataList.forEach(p => {
-                container.innerHTML += `
-                    <div class="product-card">
-                        <span class="product-tag">Bán Chạy</span>
-                        <div class="img-wrapper" onclick="openProductModal(${p.id})">
-                            <img src="${p.img}" class="product-img" alt="${p.title}">
-                        </div>
-                        <div class="product-info">
-                            <div class="product-brand">${p.brand}</div>
-                            <h3 class="product-title" onclick="openProductModal(${p.id})">${p.title}</h3>
-                            <div class="price-box">
-                                <span class="curr-price">${p.price.toLocaleString()}đ</span>
-                                <span class="old-price">${p.oldPrice.toLocaleString()}đ</span>
-                            </div>
-                            <button class="btn-add-cart" onclick="addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Chọn Vật Tư</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
+// ===== RENDER PRODUCT CARD =====
+function renderCard(p){
+  const badgeHtml = p.badge ? `<div class="product-badge ${p.badge==='new'?'new':p.badge==='sale'?'sale':''}">${p.badge==='hot'?'🔥 HOT':p.badge==='new'?'✨ MỚI':'🏷️ SALE'}</div>` : '';
+  return `
+  <div class="product-card" onclick="addToCart(${p.id})">
+    <div class="product-thumb">${p.icon}${badgeHtml}</div>
+    <div class="product-info">
+      <div class="product-cat">${CATS.find(c=>c.key===p.cat)?.label||p.cat}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-desc">${p.desc}</div>
+      <div class="product-footer">
+        <div class="product-price">${fmt(p.price)}<span>/${p.unit}</span></div>
+        <button class="btn-addcart" onclick="event.stopPropagation();addToCart(${p.id})" title="Thêm vào giỏ">+</button>
+      </div>
+    </div>
+  </div>`;
+}
 
-        /* 1. LOGIC THANH TÌM KIẾM AUTOCOMPLETE MẠNH MẼ */
-        function handleSearch(keyword) {
-            const box = document.getElementById('suggestionBox');
-            if (!keyword.trim()) { box.style.display = 'none'; return; }
-            
-            const matches = PRODUCTS_DB.filter(p => p.title.toLowerCase().includes(keyword.toLowerCase()));
-            if(matches.length === 0) { box.style.display = 'none'; return; }
+// ===== HOME PRODUCTS =====
+function renderHome(cat='all'){
+  const el = document.getElementById('home-products');
+  let list = PRODUCTS;
+  if(cat!=='all') list = PRODUCTS.filter(p=>p.cat===cat);
+  el.innerHTML = list.slice(0,8).map(renderCard).join('');
+}
 
-            box.innerHTML = '';
-            matches.slice(0, 5).forEach(m => {
-                const item = document.createElement('div');
-                item.className = 'suggestion-item';
-                item.innerText = m.title;
-                item.onclick = () => {
-                    document.getElementById('mainSearch').value = m.title;
-                    box.style.display = 'none';
-                    openProductModal(m.id);
-                };
-                box.appendChild(item);
-            });
-            box.style.display = 'block';
-        }
+function filterHome(cat,el){
+  document.querySelectorAll('#home-cat-pills .cat-pill').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  renderHome(cat);
+}
 
-        /* 1B. LOGIC BỘ LỌC PHÂN LOẠI DANH MỤC TRỰC QUAN */
-        function filterProducts() {
-            const cat = document.getElementById('filterCategory').value;
-            const brand = document.getElementById('filterBrand').value;
-            const priceRange = document.getElementById('filterPrice').value;
+// ===== ALL PRODUCTS =====
+function renderAllProducts(){
+  const search = (document.getElementById('productSearch')?.value||'').toLowerCase();
+  let list = PRODUCTS;
+  if(currentCat!=='all') list = list.filter(p=>p.cat===currentCat);
+  if(currentPriceFilter==='low') list = list.filter(p=>p.price<500000);
+  else if(currentPriceFilter==='mid') list = list.filter(p=>p.price>=500000&&p.price<=2000000);
+  else if(currentPriceFilter==='high') list = list.filter(p=>p.price>2000000);
+  if(search) list = list.filter(p=>p.name.toLowerCase().includes(search)||p.desc.toLowerCase().includes(search));
+  const el = document.getElementById('all-products');
+  const noRes = document.getElementById('no-result');
+  el.innerHTML = list.map(renderCard).join('');
+  noRes.style.display = list.length?'none':'block';
+}
 
-            let filtered = PRODUCTS_DB;
+function filterProducts(){renderAllProducts()}
 
-            if (cat !== 'all') filtered = filtered.filter(p => p.category === cat);
-            if (brand !== 'all') filtered = filtered.filter(p => p.brand === brand);
-            if (priceRange !== 'all') {
-                if (priceRange === 'under-150') filtered = filtered.filter(p => p.price < 150000);
-                if (priceRange === 'over-150') filtered = filtered.filter(p => p.price >= 150000);
-            }
-            renderProducts(filtered);
-        }
+function filterByCat(cat,el){
+  currentCat = cat;
+  document.querySelectorAll('#products-cat-pills .cat-pill').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('#sidebar-cats li').forEach((li,i)=>{
+    li.classList.toggle('active', CATS[i].key===cat);
+  });
+  renderAllProducts();
+}
 
-        /* 2. CHỨC NĂNG ZOOM TRANG CHI TIẾT SẢN PHẨM */
-        function openProductModal(id) {
-            const p = PRODUCTS_DB.find(x => x.id === id);
-            document.getElementById('modalImg').src = p.img;
-            document.getElementById('modalBrand').innerText = p.brand;
-            document.getElementById('modalTitle').innerText = p.title;
-            document.getElementById('modalPrice').innerText = p.price.toLocaleString() + 'đ';
-            document.getElementById('modalDesc').innerText = p.desc;
-            
-            // Render Review
-            const reviewArea = document.getElementById('modalReviews');
-            reviewArea.innerHTML = p.reviews.length === 0 ? '<p style="color:var(--text-secondary)">Chưa có đánh giá nào cho đợt hàng này.</p>' : '';
-            p.reviews.forEach(r => {
-                reviewArea.innerHTML += `<div class="review-item"><div class="review-user">${r.user} <span>⭐⭐⭐⭐⭐</span></div><div>${r.text}</div></div>`;
-            });
+function filterByPrice(type,el){
+  currentPriceFilter = type;
+  el.closest('ul').querySelectorAll('li').forEach(li=>li.classList.remove('active'));
+  el.classList.add('active');
+  renderAllProducts();
+}
 
-            document.getElementById('modalActionBtn').onclick = () => { addToCart(p.id); closeProductModal(); };
-            document.getElementById('productModal').style.display = 'flex';
-        }
+// ===== SIDEBAR + PILLS =====
+function buildProductsUI(){
+  // Sidebar
+  const sb = document.getElementById('sidebar-cats');
+  sb.innerHTML = CATS.map((c,i)=>`
+    <li class="${i===0?'active':''}" onclick="filterByCat('${c.key}',this)">
+      ${c.label} <span class="sidebar-count">${c.key==='all'?PRODUCTS.length:PRODUCTS.filter(p=>p.cat===c.key).length}</span>
+    </li>`).join('');
+  // Pills
+  const pp = document.getElementById('products-cat-pills');
+  pp.innerHTML = CATS.map((c,i)=>`
+    <span class="cat-pill ${i===0?'active':''}" onclick="filterByCat('${c.key}',this)">${c.label}</span>`).join('');
+  renderAllProducts();
+}
 
-        function closeProductModal() { document.getElementById('productModal').style.display = 'none'; }
-        
-        function zoomImage(e) {
-            const img = document.querySelector('#zoomArea img');
-            const box = document.getElementById('zoomArea');
-            const x = e.clientX - box.offsetLeft;
-            const y = e.clientY - box.offsetTop;
-            img.style.transformOrigin = `${x}px ${y}px`;
-            img.style.transform = 'scale(1.8)';
-        }
-        function resetZoom() { document.querySelector('#zoomArea img').style.transform = 'scale(1)'; }
+// ===== CART =====
+function addToCart(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p,qty:1});
+  updateCartBadge();
+  showToast(`✅ Đã thêm "${p.name}" vào giỏ!`);
+}
 
-        /* 3. QUY TRÌNH QUẢN LÝ GIỎ HÀNG & CHECKOUT KHÔNG CẦN ĐĂNG KÝ */
-        function addToCart(id) {
-            const item = PRODUCTS_DB.find(p => p.id === id);
-            GIO_HANG.push(item);
-            updateCartUI();
-        }
+function updateCartBadge(){
+  const total = cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cartBadge').textContent = total;
+}
 
-        function updateCartUI() {
-            document.getElementById('cartCount').innerText = GIO_HANG.length;
-            const container = document.getElementById('cartItemsList');
-            container.innerHTML = '';
-            
-            let total = 0;
-            GIO_HANG.forEach((p, idx) => {
-                total += p.price;
-                container.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-main); padding:10px; border-radius:6px; margin-bottom:8px; font-size:13px;">
-                        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:240px;">${p.title}</span>
-                        <span style="font-weight:600; color:var(--price-color);">${p.price.toLocaleString()}đ</span>
-                        <i class="fas fa-trash-alt" style="cursor:pointer; color:var(--text-secondary)" onclick="removeFromCart(${idx})"></i>
-                    </div>
-                `;
-            });
-            
-            document.getElementById('cartTotalPrice').innerText = (total * UU_DAI_GIAM_GIA).toLocaleString() + 'đ';
-        }
+function renderCart(){
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if(!cart.length){
+    body.innerHTML = `<div class="cart-empty"><span class="em-icon">🛒</span><p>Giỏ hàng trống.<br>Hãy thêm sản phẩm!</p></div>`;
+    foot.style.display='none';return;
+  }
+  body.innerHTML = cart.map(item=>`
+    <div class="cart-item">
+      <div class="cart-item-icon">${item.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-price">${fmt(item.price*item.qty)}</div>
+      </div>
+      <div class="cart-item-qty">
+        <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+        <span class="qty-num">${item.qty}</span>
+        <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+        <button class="btn-remove" onclick="removeItem(${item.id})">✕</button>
+      </div>
+    </div>`).join('');
+  const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  document.getElementById('cartTotal').textContent = fmt(total);
+  foot.style.display='block';
+}
 
-        function removeFromCart(index) {
-            GIO_HANG.splice(index, 1);
-            updateCartUI();
-        }
+function changeQty(id,delta){
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty += delta;
+  if(item.qty<=0) cart = cart.filter(x=>x.id!==id);
+  updateCartBadge();renderCart();
+}
+function removeItem(id){
+  cart = cart.filter(x=>x.id!==id);
+  updateCartBadge();renderCart();
+}
+function openCart(){
+  renderCart();
+  document.getElementById('cartOverlay').classList.add('open');
+  document.getElementById('cartPanel').classList.add('open');
+}
+function closeCart(){
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('cartPanel').classList.remove('open');
+}
+function checkout(){
+  cart=[];updateCartBadge();renderCart();closeCart();
+  showToast('🎉 Đặt hàng thành công! Chúng tôi sẽ liên hệ bạn sớm.');
+}
 
-        function toggleCheckout(open) {
-            document.getElementById('checkoutSidebar').style.display = open ? 'block' : 'none';
-        }
+// ===== TOAST =====
+let toastTimer;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),3000);
+}
 
-        function applyCoupon() {
-            const code = document.getElementById('couponInput').value.trim();
-            if(code === 'ST2026') {
-                UU_DAI_GIAM_GIA = 0.95; // Giảm 5% tổng hóa đơn
-                alert("Áp dụng mã giảm giá 5% thành công!");
-                updateCartUI();
-            } else {
-                alert("Mã giảm giá không hợp lệ hoặc đã hết hạn.");
-            }
-        }
+// ===== PAGES =====
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>{
+    l.classList.toggle('active',l.textContent.trim().toLowerCase().includes(name==='home'?'trang':name==='products'?'sản':name==='about'?'giới':'liên'));
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='products') buildProductsUI();
+}
 
-        function setPayment(method) {
-            PHUONG_THUC_TT = method;
-            document.getElementById('payCOD').className = 'pay-method-card' + (method === 'COD' ? ' active' : '');
-            document.getElementById('payBank').className = 'pay-method-card' + (method === 'BANK' ? ' active' : '');
-            document.getElementById('qrBoxArea').style.display = method === 'BANK' ? 'block' : 'none';
-        }
+// ===== SEARCH TOGGLE =====
+function toggleSearch(){
+  showPage('products');
+  setTimeout(()=>{const s=document.getElementById('productSearch');if(s)s.focus();},300);
+}
 
-        function submitOrder() {
-            const name = document.getElementById('customerName').value.trim();
-            const phone = document.getElementById('customerPhone').value.trim();
-            const addr = document.getElementById('customerAddress').value.trim();
+// ===== MOBILE MENU =====
+function toggleMobile(){
+  const m=document.querySelector('.nav-menu');
+  if(m.style.display==='flex'){m.style.display='';return;}
+  m.style.cssText='display:flex;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem;gap:.25rem;z-index:999';
+}
 
-            if(GIO_HANG.length === 0) { alert("Giỏ hàng của bạn đang trống!"); return; }
-            if(!name || !phone || !addr) { alert("Vui lòng điền đầy đủ các thông tin có dấu * để bộ phận xe bãi Song Thịnh chạy đơn!"); return; }
+// ===== CONTACT =====
+function submitContact(){
+  showToast('✅ Yêu cầu đã được gửi! Chúng tôi sẽ liên hệ trong 30 phút.');
+}
 
-            alert(`🎉 ĐẶT HÀNG THÀNH CÔNG!\nChào hệ thống thầu ${name}, đơn hàng đang được điều phối nhân viên liên hệ xác nhận lộ trình qua số di động ${phone} trong vòng 5-15 phút. Cảm ơn đã tin tưởng Song Thịnh!`);
-            GIO_HANG = [];
-            updateCartUI();
-            toggleCheckout(false);
-        }
-
-        // LOGIC CHUYỂN ĐỔI GIAO DIỆN (THEME)
-        function toggleTheme() {
-            const body = document.body;
-            if (body.getAttribute('data-theme') === 'light') {
-                body.removeAttribute('data-theme');
-            } else {
-                body.setAttribute('data-theme', 'light');
-            }
-        }
-    </script>
+// ===== INIT =====
+renderHome();
+</script>
 </body>
 </html>
